@@ -1,4 +1,6 @@
 <?php
+    session_start();
+    
     echo '<pre>';
     print_r($_POST);
     echo '</pre>';
@@ -9,10 +11,10 @@
     $categoria = str_replace('#', '-',$_POST['categoria']);
     $descricao = str_replace('#', '-',$_POST['descricao']);
 
-    $texto = $titulo .'#'.$categoria .'#'.$descricao . PHP_EOL;
+    $texto = $_SESSION['id']. '#'. $titulo .'#'.$categoria .'#'.$descricao . PHP_EOL;
 
     fwrite($arquivo, $texto);
     fclose($arquivo);
-    echo $texto;
+    header('Location: abrir_chamado.php');
 
 ?>

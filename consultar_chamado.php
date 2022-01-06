@@ -2,6 +2,19 @@
   require_once"validador_acesso.php";
 
 ?>
+
+<?php 
+ $chamados = array();
+
+  $arquivo = fopen('arquivo.hd', 'r');  
+
+  while(!feof($arquivo)){
+   $registro = fgets($arquivo);
+   $chamados[] = $registro;
+  }
+  fclose($arquivo);
+?>
+
 <html>
   <head>
     <meta charset="utf-8" />
@@ -20,12 +33,12 @@
 
   <body>
 
-    <nav class="navbar navbar-dark bg-dark">
+    <nav  class="navbar navbar-dark bg-dark">
       <a class="navbar-brand" href="#">
         <img src="logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         App Help Desk
       </a>
-
+      div
       <ul class="navbar-nav">
         <li class="nav-item">
           <a href="logoff.php" class="nav-link">SAIR</a>
@@ -43,24 +56,26 @@
             </div>
             
             <div class="card-body">
+
+              <?php foreach($chamados as $chamados) { ?>
+                <?php
+
+                  $chamado_dados = explode('#', $chamados);
+
+                  if(count($chamado_dados) < 3){
+                    continue;
+                  }
+                  
+                ?>
+                <div class="card mb-3 bg-light">
+                  <div class="card-body">
+                    <h5 class="card-title"><?=$chamado_dados[0]?></h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><?=$chamado_dados[1]?></h6>
+                    <p class="card-text"><?=$chamado_dados[2]?></p>
+                  </div>
+                </div>
               
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
-
-              <div class="card mb-3 bg-light">
-                <div class="card-body">
-                  <h5 class="card-title">Título do chamado...</h5>
-                  <h6 class="card-subtitle mb-2 text-muted">Categoria</h6>
-                  <p class="card-text">Descrição do chamado...</p>
-
-                </div>
-              </div>
+              <?php } ?>
 
               <div class="row mt-5">
                 <div class="col-6">
